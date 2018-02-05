@@ -1,73 +1,11 @@
 #include <string>
-#include<vector>
-
-std::vector<std::vector<bool>>  A1{
-        {0, 0, 1, 0, 0},
-        {0, 1, 1, 1, 0},
-        {1, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1},
-        {1, 0, 0, 0, 1}
-};
-
-std::vector<std::vector<bool>>  B{
-        {1, 1, 0},
-        {1, 0, 1},
-        {1, 1, 0},
-        {1, 0, 1},
-        {1, 1, 0}
-};
-
-std::vector<std::vector<bool>>  C{
-        {0, 1, 1, 1},
-        {1, 1, 0, 0},
-        {1, 1, 0, 0},
-        {1, 1, 0, 0},
-        {0, 1, 1, 1}
-};
-
-std::vector<std::vector<bool>>  D{
-        {1, 1, 0},
-        {1, 0, 1},
-        {1, 0, 1},
-        {1, 0, 1},
-        {1, 1, 0}
-};
-
-std::vector<std::vector<bool>>  E{
-        {1, 1, 1},
-        {1, 0, 0},
-        {1, 1, 1},
-        {1, 0, 0},
-        {1, 1, 1}
-};
-
-std::vector<std::vector<bool>>  F{
-        {1, 1, 1},
-        {1, 0, 0},
-        {1, 1, 1},
-        {1, 0, 0},
-        {1, 0, 0}
-};
-
-std::vector<std::vector<bool>>  G{
-       {0, 1, 1, 1, 0},
-       {1, 1, 0, 0, 0},
-       {1, 1, 0, 1, 1},
-       {1, 1, 0, 0, 1},
-       {0, 1, 1, 1, 0}
-};
-
-std::vector<std::vector<bool>>  H{
-        {1, 0, 0, 1},
-        {1, 0, 0, 1},
-        {1, 1, 1, 1},
-        {1, 0, 0, 1},
-        {1, 1, 0, 1}
-};
+#include <vector>
+#include "lettersLib.cpp"
+#include <FastLED.h>
 
 
 //protos
-bool getLetterArray(char);
+std::vector<std::vector<bool>> getLetterArray(char);
 void returnFormmattedArr(std::string, int, int);
 
 
@@ -77,9 +15,33 @@ std::vector<std::vector<bool>> getLetterArray(char letter){
   case 'B': return B;
   case 'C': return C;
   case 'D': return D;
+  case 'E': return E;
+  case 'F': return F;
+  case 'G': return G;
+  case 'H': return H;
+  case 'I': return I;
+  case 'J': return J;
+  case 'K': return K;
+  case 'L': return L;
+  case 'M': return M;
+  case 'N': return N;
+  case 'O': return O;
+  case 'P': return P;
+  case 'Q': return Q;
+  case 'R': return R;
+  case 'S': return S;
+  case 'T': return T;
+  case 'U': return U;
+  case 'V': return V;
+  case 'W': return W;
+  case 'X': return X;
+  case 'Y': return Y;
+  case 'Z': return Z;
+  case ' ': return space_large;
+  case 'L': return space_small; //figure out letter space
 
-  default : return false;
-  }
+  default : return {{false}};
+}
 }
 
 void returnFormmattedArr(std::string input, int lineLength, int NUM_LEDS){

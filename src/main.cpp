@@ -1,4 +1,5 @@
 #include <FastLED.h>
+#include "letters.cpp"
 
 #define LED_PIN     5
 #define NUM_LEDS    30
@@ -44,9 +45,11 @@ void setup() {
     currentBlending = LINEARBLEND;
 }
 
-
 void loop()
 {
+  *leds = returnFormmattedArr(std::string input, int lineLength, int NUM_LEDS);
+  FastLED.show();
+
   for(int dot = 0; dot < NUM_LEDS; dot++) {
         leds[dot] = CRGB::Blue;
         leds[dot +1] = CRGB::Red;
