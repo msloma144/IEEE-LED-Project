@@ -39,6 +39,7 @@ std::vector<std::vector<bool>> getLetterArray(char letter){
   case 'Z': return Z;
   case ' ': return space_large;
   case '_': return space_small; //figure out letter space
+  //potato
 
   default : return {{false}};
 }
