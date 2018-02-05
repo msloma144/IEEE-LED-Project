@@ -5,4 +5,3 @@
 .idea
 cmake-build-debug
 CMakeLists.txt
-letters2.cpp
