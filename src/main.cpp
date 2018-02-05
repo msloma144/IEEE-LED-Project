@@ -1,5 +1,6 @@
 #include <FastLED.h>
 #include "letters.cpp"
+#include <string>
 
 #define LED_PIN     5
 #define NUM_LEDS    30
@@ -38,6 +39,12 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
 void setup() {
     delay( 3000 ); // power-up safety delay
+
+    std::string input = "test";
+    int LINE_LENGTH = 30;
+
+
+    *leds = returnFormmattedArr(input, LINE_LENGTH, NUM_LEDS);
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
     FastLED.setBrightness(  BRIGHTNESS );
 
@@ -47,7 +54,7 @@ void setup() {
 
 void loop()
 {
-  *leds = returnFormmattedArr(std::string input, int lineLength, int NUM_LEDS);
+
   FastLED.show();
 
   for(int dot = 0; dot < NUM_LEDS; dot++) {

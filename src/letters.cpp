@@ -38,7 +38,7 @@ std::vector<std::vector<bool>> getLetterArray(char letter){
   case 'Y': return Y;
   case 'Z': return Z;
   case ' ': return space_large;
-  case 'L': return space_small; //figure out letter space
+  case '_': return space_small; //figure out letter space
 
   default : return {{false}};
 }
