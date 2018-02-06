@@ -44,7 +44,7 @@ void setup() {
     int LINE_LENGTH = 30;
 
 
-    *leds = returnFormmattedArr(input, LINE_LENGTH, NUM_LEDS);
+    returnFormmattedArr(input, LINE_LENGTH, NUM_LEDS, leds);
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
     FastLED.setBrightness(  BRIGHTNESS );
 
@@ -58,12 +58,12 @@ void loop()
   FastLED.show();
 
   for(int dot = 0; dot < NUM_LEDS; dot++) {
-        leds[dot] = CRGB::Blue;
-        leds[dot +1] = CRGB::Red;
-        FastLED.show();
+        //leds[dot] = CRGB::Blue;
+        //leds[dot +1] = CRGB::Red;
+        //FastLED.show();
         // clear this led for the next time around the loop
-        leds[dot] = CRGB::Black;
-        leds[dot+1] = CRGB::Black;
-        delay(30);
+        //leds[dot] = CRGB::Black;
+        //leds[dot+1] = CRGB::Black;
+        //delay(30);
     }
 }

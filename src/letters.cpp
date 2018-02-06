@@ -6,8 +6,8 @@
 
 //protos
 std::vector<std::vector<bool>> getLetterArray(char);
-CRGB* returnFormmattedArr(std::string, int, int); // returns led array
-CRGB* processCharLine(std::vector<bool>); // returns led array (part)
+void returnFormmattedArr(std::string, int, int, CRGB); // returns led array
+void processCharLine(std::vector<bool>, CRGB); // returns led array (part)
 
 
 std::vector<std::vector<bool>> getLetterArray(char letter){
@@ -40,29 +40,25 @@ std::vector<std::vector<bool>> getLetterArray(char letter){
   case 'Z': return Z;
   case ' ': return space_large;
   case '_': return space_small; //figure out letter space
-  //potato
 
   default : return {{false}};
 }
 }
 
-CRGB* processCharLine(std::vector<bool> line){
+void processCharLine(std::vector<bool> line){
   CRGB ledPart[line.size()];
 
-  for(i = 0; i < line.size(); i++){
+  for(int i = 0; i < line.size(); i++){
     if(line[i]){
-      ledPart.set(i, CRGB::Red);
+      ledPart[i] = CRGB::Red;
     }
     else{
       ledPart[i] = CRGB::Black;
     }
   }
-
-  return &ledPart;
 }
 
-CRGB* returnFormmattedArr(std::string input, int LINE_LENGTH, int NUM_LEDS){
-    CRGB leds[NUM_LEDS];
+void returnFormmattedArr(std::string input, int LINE_LENGTH, int NUM_LEDS, CRGB &leds){
     // string to char array
     int inputLength = input.length();
     char charInput[inputLength + 1];
@@ -70,16 +66,16 @@ CRGB* returnFormmattedArr(std::string input, int LINE_LENGTH, int NUM_LEDS){
 
     int NUM_LINES = NUM_LEDS / LINE_LENGTH;
 
-    for(i = 0; i < NUM_LINES; i++){
+    for(int i = 0; i < NUM_LINES; i++){
       for(int j = 0; j < inputLength; j++){
         std::vector<bool> lineTemp = getLetterArray(charInput[j])[i];
 
         for(int count = 0; count < LINE_LENGTH; i++){
-          if(lineTemp[i])
+          //if(lineTemp[i])
         }
         //leds[i * LINE_LENGTH : i+1 * LINE_LENGTH] =
         //for()
       }
     }
-    return null;
+    //return null;
 }
