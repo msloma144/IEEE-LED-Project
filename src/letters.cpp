@@ -6,7 +6,8 @@
 
 //protos
 std::vector<std::vector<bool>> getLetterArray(char);
-void returnFormmattedArr(std::string, int, int);
+CRGB* returnFormmattedArr(std::string, int, int); // returns led array
+CRGB* processCharLine(std::vector<bool>); // returns led array (part)
 
 
 std::vector<std::vector<bool>> getLetterArray(char letter){
@@ -45,6 +46,40 @@ std::vector<std::vector<bool>> getLetterArray(char letter){
 }
 }
 
-void returnFormmattedArr(std::string input, int lineLength, int NUM_LEDS){
-    //FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
+CRGB* processCharLine(std::vector<bool> line){
+  CRGB ledPart[line.size()];
+
+  for(i = 0; i < line.size(); i++){
+    if(line[i]){
+      ledPart.set(i, CRGB::Red);
+    }
+    else{
+      ledPart[i] = CRGB::Black;
+    }
+  }
+
+  return &ledPart;
+}
+
+CRGB* returnFormmattedArr(std::string input, int LINE_LENGTH, int NUM_LEDS){
+    CRGB leds[NUM_LEDS];
+    // string to char array
+    int inputLength = input.length();
+    char charInput[inputLength + 1];
+    strcpy(charInput, input.c_str());
+
+    int NUM_LINES = NUM_LEDS / LINE_LENGTH;
+
+    for(i = 0; i < NUM_LINES; i++){
+      for(int j = 0; j < inputLength; j++){
+        std::vector<bool> lineTemp = getLetterArray(charInput[j])[i];
+
+        for(int count = 0; count < LINE_LENGTH; i++){
+          if(lineTemp[i])
+        }
+        //leds[i * LINE_LENGTH : i+1 * LINE_LENGTH] =
+        //for()
+      }
+    }
+    return null;
 }

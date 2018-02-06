@@ -130,10 +130,7 @@ std::vector<std::vector<bool>>  P{
         {1, 0, 0, 0, 0}
 };
 
-//protos
-std::vector<std::vector<bool>> getLetterArray(char);
-CRGB* returnFormmattedArr(std::string, int, int); // returns led array
-CRGB* processCharLine(); // returns led array (part)
+
 
 std::vector<std::vector<bool>> getLetterArray(char letter){
   switch (letter) {
