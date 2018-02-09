@@ -46,6 +46,7 @@ std::vector<std::vector<bool>> getLetterArray(char letter){
 }
 }
 
+//DEPRECIATED
 void processCharLine(std::vector<bool> line){
   CRGB ledPart[line.size()];
 
@@ -59,20 +60,27 @@ void processCharLine(std::vector<bool> line){
   }
 }
 
-char* inputToChar(std::string input, int inputLength){
+char* inputToChar(std::string input){
+  int inputLength = input.length();
   char *charInput;
+
   charInput = new char[inputLength + 1];
   return strcpy(charInput, input.c_str());
 }
 
- std::vector<std::vector<bool>> charToMatrix(char inputArr[], int LINE_LENGTH){
-  std::vector<std::vector<bool>> matrix;
+std::vector<std::vector<bool>> charToMatrix(char inputArr[], int LINE_LENGTH){
+  //takes in the array of chars (input) and converts them into
+  //a boolean matrix as prescribed by their corresponding letter matrix
+  //in lettersLib
+
+  std::vector<std::vector<bool>> matrix(5);
   int inputLength = *(&inputArr + 1) - inputArr;
 
   for(int i = 0; i < 5; i++){
+    matrix.at(i) = std::vector<bool>(LINE_LENGTH);
+
     for(int j = 0; j < inputLength; j++){
       //add the letter matrix part for the current line
-      //matrix.at(i).push_back(getLetterArray(inputArr[j]).at(i))
       std::vector<bool> temp = getLetterArray(inputArr[j]).at(i);
       std::vector<bool> line = matrix.at(i); //might work
       line.insert(line.end(), temp.begin(), temp.end());
@@ -86,6 +94,8 @@ char* inputToChar(std::string input, int inputLength){
     }
   }
   while((matrix.at(0).size() % LINE_LENGTH) != 0){
+    //add spaces to the end of the line till the matrix has a moduluo many columns as
+    //there are pixels
     for(unsigned int i = 0; i < matrix.size(); i++){
       for (size_t j = 0; j < matrix.at(0).size(); j++) {
         matrix.at(i).push_back(0);
@@ -114,38 +124,46 @@ std::vector<std::vector<CRGB>> setColors(std::vector<std::vector<bool>> matrix){
   return colorMatrix;
 }
 
-void matrixToArr(){
+CRGB* matrixToArr(std::vector<std::vector<CRGB>> colorMatrix){
   //turns vector<vector<CRGB>> into CRGB 1d array
+  unsigned int height = colorMatrix.size();
+  unsigned int width = colorMatrix.at(0).size();
+  unsigned int arrayLength = height * width;
+  CRGB *array;
+  array = new CRGB[arrayLength];
 
+  unsigned int counter = 0;
+
+  for(unsigned int i = 0; i < height; i++){
+    for(unsigned int j = 0; i < width; j++)
+    array[counter] = colorMatrix.at(i).at(j);
+    counter++;
+  }
+  return array;
 }
 
-void slideView(std::vector<std::vector<CRGB>> colorMatrix, unsigned int LINE_LENGTH, unsigned int count){
+std::vector<std::vector<CRGB>> stringtoColor(std::string input, int LINE_LENGTH, int NUM_LEDS){
+    //int NUM_LINES = NUM_LEDS / LINE_LENGTH;
+
+    char* charInput;
+    charInput = inputToChar(input);
+
+    std::vector<std::vector<bool>> boolMatrix = charToMatrix(charInput, LINE_LENGTH);
+    std::vector<std::vector<CRGB>> colorMatrix = setColors(boolMatrix);
+
+    return colorMatrix;
+}
+
+CRGB* slideView(std::vector<std::vector<CRGB>> colorMatrix, unsigned int LINE_LENGTH, unsigned int count){
   //takes in colorMatrix and returns CRGB 1d array
   std::vector<std::vector<CRGB>> outputMatrix(colorMatrix.size());
 
   for(unsigned int i = 0; i < colorMatrix.size(); i++){
-    //outputMatrix.at(i) = std::vector<CRGB>(colorMatrix.at(i).begin() + count, colorMatrix.at(i).end() - LINE_LENGTH);
-
+    //get subsection of vector for output
+    outputMatrix.at(i) = std::vector<CRGB>(colorMatrix.at(i).begin() + count, colorMatrix.at(i).begin() + (LINE_LENGTH + count));
   }
-}
 
-void returnFormmattedArr(std::string input, int LINE_LENGTH, int NUM_LEDS){
-    // string to char array
-    int inputLength = input.length();
-    char *charInput = inputToChar(input, input.length());
-
-    int NUM_LINES = NUM_LEDS / LINE_LENGTH;
-
-    for(int i = 0; i < NUM_LINES; i++){
-      for(int j = 0; j < inputLength; j++){
-        std::vector<bool> lineTemp = getLetterArray(charInput[j])[i];
-
-        for(int count = 0; count < LINE_LENGTH; i++){
-          //if(lineTemp[i])
-        }
-        //leds[i * LINE_LENGTH : i+1 * LINE_LENGTH] =
-        //for()
-      }
-    }
-    //return null;
+  CRGB *output;
+  output = matrixToArr(outputMatrix);
+  return output;
 }

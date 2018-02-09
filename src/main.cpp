@@ -1,6 +1,7 @@
 #include <FastLED.h>
 #include "letters.h"
 #include <string>
+#include <iostream>
 
 #define LED_PIN     5
 #define NUM_LEDS    30
@@ -8,10 +9,11 @@
 #define LED_TYPE    WS2812B
 #define COLOR_ORDER GRB
 #define LINE_LENGTH 30
-unsigned int count;
-CRGB leds[NUM_LEDS];
-
 #define UPDATES_PER_SECOND 100
+unsigned int count;
+CRGB *leds;
+std::vector<std::vector<CRGB>> colorMatrix;
+
 
 // This example shows several ways to set up and use 'palettes' of colors
 // with FastLED.
@@ -40,13 +42,16 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
 
 void setup() {
+    Serial.begin(9600);
+    Serial.print("Starting...");
+
     delay( 3000 ); // power-up safety delay
     count = 0;
     std::string input = "test";
 
+    colorMatrix = stringtoColor(input, LINE_LENGTH, NUM_LEDS);
+    leds = slideView(colorMatrix, LINE_LENGTH, count);
 
-
-    returnFormmattedArr(input, LINE_LENGTH, NUM_LEDS);
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
     FastLED.setBrightness(  BRIGHTNESS );
 
@@ -54,21 +59,12 @@ void setup() {
     currentBlending = LINEARBLEND;
 }
 
-void loop()
-{
+void loop() {
+  Serial.print("Looping...");;
+
   if(count > LINE_LENGTH){
     count = 0;
   }
-
+  leds = slideView(colorMatrix, LINE_LENGTH, count);
   FastLED.show();
-
-  for(int dot = 0; dot < NUM_LEDS; dot++) {
-        //leds[dot] = CRGB::Blue;
-        //leds[dot +1] = CRGB::Red;
-        //FastLED.show();
-        // clear this led for the next time around the loop
-        //leds[dot] = CRGB::Black;
-        //leds[dot+1] = CRGB::Black;
-        //delay(30);
-    }
 }
