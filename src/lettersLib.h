@@ -1,0 +1,30 @@
+#include <vector>
+//defines the global variables for library
+extern std::vector<std::vector<bool>> A;
+extern std::vector<std::vector<bool>> B;
+extern std::vector<std::vector<bool>> C;
+extern std::vector<std::vector<bool>> D;
+extern std::vector<std::vector<bool>> E;
+extern std::vector<std::vector<bool>> F;
+extern std::vector<std::vector<bool>> G;
+extern std::vector<std::vector<bool>> H;
+extern std::vector<std::vector<bool>> I;
+extern std::vector<std::vector<bool>> J;
+extern std::vector<std::vector<bool>> K;
+extern std::vector<std::vector<bool>> L;
+extern std::vector<std::vector<bool>> M;
+extern std::vector<std::vector<bool>> N;
+extern std::vector<std::vector<bool>> O;
+extern std::vector<std::vector<bool>> P;
+extern std::vector<std::vector<bool>> Q;
+extern std::vector<std::vector<bool>> R;
+extern std::vector<std::vector<bool>> S;
+extern std::vector<std::vector<bool>> T;
+extern std::vector<std::vector<bool>> U;
+extern std::vector<std::vector<bool>> V;
+extern std::vector<std::vector<bool>> W;
+extern std::vector<std::vector<bool>> X;
+extern std::vector<std::vector<bool>> Y;
+extern std::vector<std::vector<bool>> Z;
+extern std::vector<std::vector<bool>> space_large;
+extern std::vector<std::vector<bool>> space_small;

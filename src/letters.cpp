@@ -1,14 +1,14 @@
 #include <string>
 #include <vector>
-#include "lettersLib.cpp"
+#include "lettersLib.h"
 #include <FastLED.h>
 #include <ctype.h>
 
 
 //protos
-std::vector<std::vector<bool>> getLetterArray(char);
-void returnFormmattedArr(std::string, int, int, CRGB); // returns led array
-void processCharLine(std::vector<bool>, CRGB); // returns led array (part)
+//std::vector<std::vector<bool>> getLetterArray(char);
+//void returnFormmattedArr(std::string, int, int, CRGB); // returns led array
+//void processCharLine(std::vector<bool>, CRGB); // returns led array (part)
 
 
 std::vector<std::vector<bool>> getLetterArray(char letter){
@@ -49,7 +49,7 @@ std::vector<std::vector<bool>> getLetterArray(char letter){
 void processCharLine(std::vector<bool> line){
   CRGB ledPart[line.size()];
 
-  for(int i = 0; i < line.size(); i++){
+  for(unsigned int i = 0; i < line.size(); i++){
     if(line[i]){
       ledPart[i] = CRGB::Red;
     }
@@ -60,50 +60,76 @@ void processCharLine(std::vector<bool> line){
 }
 
 char* inputToChar(std::string input, int inputLength){
-  char charInput[inputLength + 1];
+  char *charInput;
+  charInput = new char[inputLength + 1];
   return strcpy(charInput, input.c_str());
 }
 
-void charToMatrix(char inputArr[]){
+ std::vector<std::vector<bool>> charToMatrix(char inputArr[], int LINE_LENGTH){
   std::vector<std::vector<bool>> matrix;
   int inputLength = *(&inputArr + 1) - inputArr;
 
   for(int i = 0; i < 5; i++){
     for(int j = 0; j < inputLength; j++){
       //add the letter matrix part for the current line
-      matrix.at(i).push_back(getLetterArray(inputArr[j]).at(i))
+      //matrix.at(i).push_back(getLetterArray(inputArr[j]).at(i))
+      std::vector<bool> temp = getLetterArray(inputArr[j]).at(i);
+      std::vector<bool> line = matrix.at(i); //might work
+      line.insert(line.end(), temp.begin(), temp.end());
 
       //add small space if current char AND next char are alpha
       if(isalpha(inputArr[j]) && isalpha(inputArr[j+1])){
-        matrix.at(i).push_back(getLetterArray('_').at(i))
+        std::vector<bool> temp = getLetterArray('_').at(i);
+        std::vector<bool> line = matrix.at(i); //might work
+        line.insert(line.end(), temp.begin(), temp.end());
       }
     }
   }
-  //return matrix;
+  while((matrix.at(0).size() % LINE_LENGTH) != 0){
+    for(unsigned int i = 0; i < matrix.size(); i++){
+      for (size_t j = 0; j < matrix.at(0).size(); j++) {
+        matrix.at(i).push_back(0);
+      }
+    }
+  }
+
+  return matrix;
 }
 
-void setColors(std::vector<std::vector<bool>> matrix){
-  std::vector<std::vector<CRGB>> colorMatrix;
+std::vector<std::vector<CRGB>> setColors(std::vector<std::vector<bool>> matrix){
+  std::vector<std::vector<CRGB>> colorMatrix(matrix.size());
   //initialize colorMatix to same size as martix
-  for(int i = 0; i < matrix.size(); i++){
-    for(int j = 0; j < matrix.at(0).size(); j++){
+  for(unsigned int i = 0; i < matrix.size(); i++){
+    colorMatrix.at(i) = std::vector<CRGB>(matrix.at(0).size());
+
+    for(unsigned int j = 0; j < matrix.at(0).size(); j++){
       if(matrix.at(i).at(j)){
-        colorMatrix.at(i).assign(j , CRGB::Black);
+        colorMatrix.at(i).assign(j , CRGB::Red);
       }
       else{
         colorMatrix.at(i).assign(j , CRGB::Black);
       }
     }
   }
-}
-void matrixToArr(){
-  //turns vector<vector<CRGB>> into CRGB 1d array
-}
-void slideView(){
-  //returns CRGB 1d array
+  return colorMatrix;
 }
 
-void returnFormmattedArr(std::string input, int LINE_LENGTH, int NUM_LEDS, CRGB &leds){
+void matrixToArr(){
+  //turns vector<vector<CRGB>> into CRGB 1d array
+
+}
+
+void slideView(std::vector<std::vector<CRGB>> colorMatrix, unsigned int LINE_LENGTH, unsigned int count){
+  //takes in colorMatrix and returns CRGB 1d array
+  std::vector<std::vector<CRGB>> outputMatrix(colorMatrix.size());
+
+  for(unsigned int i = 0; i < colorMatrix.size(); i++){
+    //outputMatrix.at(i) = std::vector<CRGB>(colorMatrix.at(i).begin() + count, colorMatrix.at(i).end() - LINE_LENGTH);
+
+  }
+}
+
+void returnFormmattedArr(std::string input, int LINE_LENGTH, int NUM_LEDS){
     // string to char array
     int inputLength = input.length();
     char *charInput = inputToChar(input, input.length());

@@ -1,5 +1,5 @@
 #include <FastLED.h>
-#include "letters.cpp"
+#include "letters.h"
 #include <string>
 
 #define LED_PIN     5
@@ -7,6 +7,8 @@
 #define BRIGHTNESS  64
 #define LED_TYPE    WS2812B
 #define COLOR_ORDER GRB
+#define LINE_LENGTH 30
+unsigned int count;
 CRGB leds[NUM_LEDS];
 
 #define UPDATES_PER_SECOND 100
@@ -39,12 +41,12 @@ extern const TProgmemPalette16 myRedWhiteBluePalette_p PROGMEM;
 
 void setup() {
     delay( 3000 ); // power-up safety delay
-
+    count = 0;
     std::string input = "test";
-    int LINE_LENGTH = 30;
 
 
-    returnFormmattedArr(input, LINE_LENGTH, NUM_LEDS, leds);
+
+    returnFormmattedArr(input, LINE_LENGTH, NUM_LEDS);
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
     FastLED.setBrightness(  BRIGHTNESS );
 
@@ -54,6 +56,9 @@ void setup() {
 
 void loop()
 {
+  if(count > LINE_LENGTH){
+    count = 0;
+  }
 
   FastLED.show();
 
