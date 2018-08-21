@@ -1,174 +1,236 @@
-#include <string>
-#include <vector>
 #include "lettersLib.h"
-#include <FastLED.h>
-#include <ctype.h>
-#include <cstring>
 
+using namespace std;
 
-//protos
-//std::vector<std::vector<bool>> getLetterArray(char);
-//void returnFormmattedArr(std::string, int, int, CRGB); // returns led array
-//void processCharLine(std::vector<bool>, CRGB); // returns led array (part)
-
-
-std::vector<std::vector<bool>> getLetterArray(char letter){
-  switch (letter) {
-  case 'A': return A;
-  case 'B': return B;
-  case 'C': return C;
-  case 'D': return D;
-  case 'E': return E;
-  case 'F': return F;
-  case 'G': return G;
-  case 'H': return H;
-  case 'I': return I;
-  case 'J': return J;
-  case 'K': return K;
-  case 'L': return L;
-  case 'M': return M;
-  case 'N': return N;
-  case 'O': return O;
-  case 'P': return P;
-  case 'Q': return Q;
-  case 'R': return R;
-  case 'S': return S;
-  case 'T': return T;
-  case 'U': return U;
-  case 'V': return V;
-  case 'W': return W;
-  case 'X': return X;
-  case 'Y': return Y;
-  case 'Z': return Z;
-  case ' ': return space_large;
-  case '_': return space_small; //figure out letter space
-
-  default : return {{false}};
-}
-}
-
-//DEPRECIATED
-void processCharLine(std::vector<bool> line){
-  CRGB ledPart[line.size()];
-
-  for(unsigned int i = 0; i < line.size(); i++){
-    if(line[i]){
-      ledPart[i] = CRGB::Red;
+bool* get_sub_array(bool letter[], int letter_len, int row_num) {
+    bool *sub_arr = new bool[letter_len]();
+    //int i = (row_num - 1) * letter_len;
+    int j = 0;
+    int i, condition;
+    if(row_num > 0){
+        i = (row_num) * letter_len;
+        condition = (row_num + 1) * letter_len;
+    } else{
+        i = 0;
+        condition = row_num + letter_len;
     }
-    else{
-      ledPart[i] = CRGB::Black;
+
+    for (;i < condition; i++) {
+        sub_arr[j] = letter[i];
+        j++;
     }
-  }
+    return sub_arr;
 }
 
-char* inputToChar(std::string input){
-  int inputLength = input.length();
-  char *charInput;
+bool* getLetterArray(char letter, int row_num) {
+        bool *arr;
+        int letter_len;
+        switch (letter) {
+            case 'A':
+                arr = A;
+                letter_len = A_length;
+                break;
+            case 'B':
+                arr = B;
+                letter_len = B_length;
+                break;
+            case 'C':
+                arr = C;
+                letter_len = C_length;
+                break;
+            case 'D':
+                arr = D;
+                letter_len = D_length;
+                break;;
+            case 'E':
+                arr = E;
+                letter_len = E_length;
+                break;
+            case 'F':
+                arr = F;
+                letter_len = F_length;
+                break;
+            case 'G':
+                arr = G;
+                letter_len = G_length;
+                break;
+            case 'H':
+                arr = H;
+                letter_len = H_length;
+                break;
+            case 'I':
+                arr = I;
+                letter_len = I_length;
+                break;
+            case 'J':
+                arr = J;
+                letter_len = J_length;
+                break;;
+            case 'K':
+                arr = K;
+                letter_len = K_length;
+                break;
+            case 'L':
+                arr = L;
+                letter_len = L_length;
+                break;
+            case 'M':
+                arr = M;
+                letter_len = M_length;
+                break;
+            case 'N':
+                arr = N;
+                letter_len = N_length;
+                break;
+            case 'O':
+                arr = O;
+                letter_len = O_length;
+                break;
+            case 'P':
+                arr = P;
+                letter_len = P_length;
+                break;
+            case 'Q':
+                arr = Q;
+                letter_len = Q_length;
+                break;
+            case 'R':
+                arr = R;
+                letter_len = R_length;
+                break;
+            case 'S':
+                arr = S;
+                letter_len = S_length;
+                break;
+            case 'T':
+                arr = T;
+                letter_len = T_length;
+                break;
+            case 'U':
+                arr = U;
+                letter_len = U_length;
+                break;
+            case 'V':
+                arr = V;
+                letter_len = V_length;
+                break;
+            case 'W':
+                arr = W;
+                letter_len = W_length;
+                break;
+            case 'X':
+                arr = X;
+                letter_len = X_length;
+                break;
+            case 'Y':
+                arr = Y;
+                letter_len = Y_length;
+                break;
+            case 'Z':
+                arr = Z;
+                letter_len = Z_length;
+                break;
+            case ' ':
+                arr = space_large;
+                letter_len = space_large_length;
+                break;
+            default:
+                arr = space_small;
+                letter_len = space_small_length;
+                break;
+        }
 
-  charInput = new char[inputLength + 1];
-  return strcpy(charInput, input.c_str());
+        return get_sub_array(arr, letter_len, row_num);
 }
 
-std::vector<std::vector<bool>> charToMatrix(char inputArr[], unsigned int inputLength, unsigned int LINE_LENGTH){
-  //takes in the array of chars (input) and converts them into
-  //a boolean matrix as prescribed by their corresponding letter matrix
-  //in lettersLib
-
-  std::vector<std::vector<bool>> matrix(5);
-
-  for(unsigned int i = 0; i < 5; i++){
-
-
-    for(unsigned int j = 0; j < inputLength; j++){
-      //add the letter matrix part for the current line
-      std::vector<bool> temp = getLetterArray(inputArr[j]).at(i);
-      matrix.at(i).insert(matrix.at(i).end(), temp.begin(), temp.end());
-
-      //add small space if current char AND next char are alpha
-      if(isalpha(inputArr[j]) && isalpha(inputArr[j+1])){
-        temp = getLetterArray('_').at(i);
-          matrix.at(i).insert(matrix.at(i).end(), temp.begin(), temp.end());
-      }
+int getLetterLength(char letter) {
+    int letter_len;
+    switch (letter) {
+        case 'A':
+            letter_len = A_length;
+            break;
+        case 'B':
+            letter_len = B_length;
+            break;
+        case 'C':
+            letter_len = C_length;
+            break;
+        case 'D':
+            letter_len = D_length;
+            break;;
+        case 'E':
+            letter_len = E_length;
+            break;
+        case 'F':
+            letter_len = F_length;
+            break;
+        case 'G':
+            letter_len = G_length;
+            break;
+        case 'H':
+            letter_len = H_length;
+            break;
+        case 'I':
+            letter_len = I_length;
+            break;
+        case 'J':
+            letter_len = J_length;
+            break;;
+        case 'K':
+            letter_len = K_length;
+            break;
+        case 'L':
+            letter_len = L_length;
+            break;
+        case 'M':
+            letter_len = M_length;
+            break;
+        case 'N':
+            letter_len = N_length;
+            break;
+        case 'O':
+            letter_len = O_length;
+            break;
+        case 'P':
+            letter_len = P_length;
+            break;
+        case 'Q':
+            letter_len = Q_length;
+            break;
+        case 'R':
+            letter_len = R_length;
+            break;
+        case 'S':
+            letter_len = S_length;
+            break;
+        case 'T':
+            letter_len = T_length;
+            break;
+        case 'U':
+            letter_len = U_length;
+            break;
+        case 'V':
+            letter_len = V_length;
+            break;
+        case 'W':
+            letter_len = W_length;
+            break;
+        case 'X':
+            letter_len = X_length;
+            break;
+        case 'Y':
+            letter_len = Y_length;
+            break;
+        case 'Z':
+            letter_len = Z_length;
+            break;
+        case ' ':
+            letter_len = space_large_length;
+            break;
+        default:
+            letter_len = space_small_length;
+            break;
     }
-  }
 
-  while((matrix.at(0).size() % LINE_LENGTH) != 0){
-    //add spaces to the end of the line till the matrix has a moduluo many columns as
-    //there are pixels
-    for(unsigned int i = 0; i < matrix.size(); i++){
-      matrix.at(i).push_back(0);
-    }
-  }
-  return matrix;
-}
-
-std::vector<std::vector<CRGB>> setColors(std::vector<std::vector<bool>> matrix){
-  std::vector<std::vector<CRGB>> colorMatrix(matrix.size());
-  //initialize colorMatix to same size as martix
-  for(unsigned int i = 0; i < matrix.size(); i++){
-    colorMatrix.at(i) = std::vector<CRGB>();
-
-    for(unsigned int j = 0; j < matrix.at(0).size(); j++){
-      if(matrix.at(i).at(j)){
-        colorMatrix.at(i).push_back(CRGB::Red);
-      }
-      else{
-        colorMatrix.at(i).push_back(CRGB::Black);
-      }
-    }
-  }
-  return colorMatrix;
-}
-
-CRGB* matrixToArr(std::vector<std::vector<CRGB>> colorMatrix){
-  //turns vector<vector<CRGB>> into CRGB 1d array
-  unsigned int height = colorMatrix.size();
-  unsigned int width = colorMatrix.at(0).size();
-  unsigned int arrayLength = height * width;
-  CRGB *array;
-  array = new CRGB[arrayLength];
-
-  unsigned int counter = 0;
-
-  for(unsigned int i = 0; i < height; i++){
-    for(unsigned int j = 0; i < width; j++)
-    array[counter] = colorMatrix.at(i).at(j);
-    counter++;
-  }
-  return array;
-}
-
-std::vector<std::vector<CRGB>> stringtoColor(std::string input, int LINE_LENGTH, int NUM_LEDS){
-    //int NUM_LINES = NUM_LEDS / LINE_LENGTH;
-    char* charInput;
-    charInput = inputToChar(input);
-    unsigned int inputLength = input.length();
-
-    std::vector<std::vector<bool>> boolMatrix = charToMatrix(charInput, inputLength, LINE_LENGTH);
-    std::vector<std::vector<CRGB>> colorMatrix = setColors(boolMatrix);
-
-    return colorMatrix;
-}
-
-CRGB* slideView(std::vector<std::vector<CRGB>> colorMatrix, unsigned int LINE_LENGTH, unsigned int count){
-  Serial.println("Entered...");
-  //takes in colorMatrix and returns CRGB 1d array
-  std::vector<std::vector<CRGB>> outputMatrix(colorMatrix.size());
-
-  for(unsigned int i = 0; i < colorMatrix.size(); i++){
-    //get subsection of vector for output
-    outputMatrix.at(i) = std::vector<CRGB>();
-
-    for(unsigned int j = count; j < LINE_LENGTH + count; j++){
-      outputMatrix.at(i).push_back(colorMatrix.at(i).at(j));
-
-    }
-    Serial.println(i);
-  }
-
-  Serial.println("Shifted...");
-  CRGB *output;
-  output = matrixToArr(outputMatrix);
-  Serial.println("PREP...");
-  return output;
+    return letter_len;
 }
