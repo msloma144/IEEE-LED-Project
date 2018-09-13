@@ -54,5 +54,5 @@ extern int W_length;
 extern int X_length;
 extern int Y_length;
 extern int Z_length;
-extern bool space_large_length;
-extern bool space_small_length;
+extern int space_large_length;
+extern int space_small_length;
