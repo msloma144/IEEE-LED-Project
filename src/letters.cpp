@@ -2,6 +2,37 @@
 
 using namespace std;
 
+void clear_letters(){
+  delete [] A;
+  delete [] B;
+  delete [] C;
+  delete [] D;
+  delete [] E;
+  delete [] F;
+  delete [] H;
+  delete [] I;
+  delete [] J;
+  delete [] K;
+  delete [] L;
+  delete [] M;
+  delete [] N;
+  delete [] O;
+  delete [] P;
+  delete [] Q;
+  delete [] R;
+  delete [] S;
+  delete [] T;
+  delete [] U;
+  delete [] V;
+  delete [] W;
+  delete [] X;
+  delete [] Y;
+  delete [] Z;
+  delete [] space_large;
+  delete [] space_small;
+}
+
+
 bool* get_sub_array(bool letter[], int letter_len, int row_num) {
     bool *sub_arr = new bool[letter_len]();
     //int i = (row_num - 1) * letter_len;
@@ -130,10 +161,58 @@ bool* getLetterArray(char letter, int row_num) {
                 arr = Z;
                 letter_len = Z_length;
                 break;
-            case ' ':
-                arr = space_large;
-                letter_len = space_large_length;
+            case '1':
+                arr = one;
+                letter_len = one_length;
                 break;
+			      case '2':
+                arr = two;
+                letter_len = two_length;
+                break;
+			      case '3':
+                arr = three;
+                letter_len = three_length;
+                break;
+			      case '4':
+                arr = four;
+                letter_len = four_length;
+                break;
+			      case '5':
+                arr = five;
+                letter_len = five_length;
+                break;
+			      case '6':
+                arr = six;
+                letter_len = six_length;
+                break;
+			      case '7':
+                arr = seven;
+                letter_len = seven_length;
+                break;
+			      case '8':
+                arr = eight;
+                letter_len = eight_length;
+                break;
+			      case '9':
+                arr = nine;
+                letter_len = nine_length;
+                break;
+            case '0':
+                arr = zero;
+                letter_len = zero_length;
+                break;
+    	      case '@':
+                arr = at;
+                letter_len = at_length;
+                break;
+    		    case ':':
+               arr = colon;
+               letter_len = colon_length;
+               break;
+            case ' ':
+               arr = space_large;
+               letter_len = space_large_length;
+               break;
             default:
                 arr = space_small;
                 letter_len = space_small_length;
@@ -226,6 +305,42 @@ int getLetterLength(char letter) {
             break;
         case ' ':
             letter_len = space_large_length;
+            break;
+        case '1':
+            letter_len = one_length;
+            break;
+        case '2':
+            letter_len = two_length;
+            break;
+        case '3':
+            letter_len = three_length;
+            break;
+        case '4':
+            letter_len = four_length;
+            break;
+        case '5':
+            letter_len = five_length;
+            break;
+        case '6':
+            letter_len = six_length;
+            break;
+        case '7':
+            letter_len = seven_length;
+            break;
+        case '8':
+            letter_len = eight_length;
+            break;
+        case '9':
+            letter_len = nine_length;
+            break;
+        case '0':
+            letter_len = zero_length;
+            break;
+        case '@':
+            letter_len = at_length;
+            break;
+        case ':':
+            letter_len = colon_length;
             break;
         default:
             letter_len = space_small_length;
