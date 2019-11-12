@@ -1,4 +1,4 @@
-#include <iostream>
+//#include <iostream>
 #include "letters.h"
 #include <FastLED.h>
 
@@ -14,8 +14,8 @@ int get_max_length(char word[], int line_width) {
         content_length += getLetterLength(word[index]);
 
         // account for small spaces
-        if(word[index] != "_" | word[index] != "@" | word[index] != "."){
-          content_length += getLetterLength("");
+        if(&word[index] != "_" | &word[index] != "@" | &word[index] != "."){
+          content_length += getLetterLength(*"");
         }
     }
 
@@ -31,7 +31,7 @@ int get_max_length(char word[], int line_width) {
             max_line_length++;
         }
         // account for small spaces between letters
-        if(word[index] != "_" | word[index] != "@" | word[index] != "."){
+        if(&word[index] != "_" | &word[index] != "@" | &word[index] != "."){
           line_pos++;
           max_line_length++;
         }
@@ -64,8 +64,8 @@ bool* form_matrix(char word[], int line_width, int num_lines) {
         content_length += getLetterLength(word[index]);
 
         // account for small spaces
-        if(word[index] != "_" | word[index] != "@" | word[index] != "."){
-          content_length += getLetterLength("");
+        if(&word[index] != "_" | &word[index] != "@" | &word[index] != "."){
+          content_length += getLetterLength(*"");
         }
         raw_letter_string_len += 1;
     }
@@ -94,9 +94,9 @@ bool* form_matrix(char word[], int line_width, int num_lines) {
             }
 
             // add small space between letters
-            if(word[index] != "_" | word[index] != "@" | word[index] != "."){
-              bool *x = getLetterArray("", line_num);
-              int letter_len = getLetterLength("");
+            if(&word[index] != "_" | &word[index] != "@" | &word[index] != "."){
+              bool *x = getLetterArray(*"", line_num);
+              int letter_len = getLetterLength(*"");
 
               for (int j = 0; j < letter_len; j++) {
                   output[curr_length] = x[j];
@@ -191,7 +191,7 @@ void scroll(bool* window, int line_width, int num_lines, int max_length, bool* o
 #define LED_TYPE    WS2811
 #define COLOR_ORDER GRB
 #define LED_PIN     5
-#define BRIGHTNESS  64
+#define BRIGHTNESS  128
 #define UPDATES_PER_SECOND 100
 
 #define num_lines 10
@@ -249,11 +249,11 @@ void check_start_end(int max_length, int num){
 
 
 void setup() {
-    delay( 5000 ); // power-up safety delay
+    delay( 3000 ); // power-up safety delay
 
     // lines need to be only capital letters
-    char line_one[] = "IEEE EVERY OTHER WEEK ON TUESDAY @ 5:30P";
-    char line_two[] = "CONTACT: PRESIDENT@UTIEEECOM";
+    char line_one[] = "WELCOME";
+    char line_two[] = "STEM EVENT";
     Serial.begin(9600);
 
     matrix_one = form_matrix(line_one, line_width, num_lines / 2);
@@ -331,7 +331,7 @@ void loop(){
 
     Serial.println();
 
-    delay(500);
+    //delay(500);
 
     FastLED.show();
     FastLED.delay(1000 / UPDATES_PER_SECOND);
