@@ -519,7 +519,7 @@ public:
     {
         return !( *this == rhs);
     }
-    
+
     CHSVPalette16( const CHSV& c1)
     {
         fill_solid( &(entries[0]), 16, c1);
@@ -624,7 +624,7 @@ public:
     {
         return !( *this == rhs);
     }
-    
+
     CHSVPalette256( const CHSV& c1)
     {
       fill_solid( &(entries[0]), 256, c1);
@@ -734,7 +734,7 @@ public:
     {
         return !( *this == rhs);
     }
-    
+
     inline CRGB& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return entries[x];
@@ -925,7 +925,7 @@ public:
             entries[24+i]=c12; entries[26+i]=c13; entries[28+i]=c14; entries[30+i]=c15;
         }
     };
-    
+
     CHSVPalette32( const CHSVPalette32& rhs)
     {
         memmove8( &(entries[0]), &(rhs.entries[0]), sizeof( entries));
@@ -935,7 +935,7 @@ public:
         memmove8( &(entries[0]), &(rhs.entries[0]), sizeof( entries));
         return *this;
     }
-    
+
     CHSVPalette32( const TProgmemHSVPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
@@ -955,7 +955,7 @@ public:
         }
         return *this;
     }
-    
+
     inline CHSV& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return entries[x];
@@ -964,7 +964,7 @@ public:
     {
         return entries[x];
     }
-    
+
     inline CHSV& operator[] (int x) __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
@@ -973,12 +973,12 @@ public:
     {
         return entries[(uint8_t)x];
     }
-    
+
     operator CHSV*()
     {
         return &(entries[0]);
     }
-    
+
     bool operator==( const CHSVPalette32 rhs)
     {
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
@@ -995,7 +995,7 @@ public:
     {
         return !( *this == rhs);
     }
-    
+
     CHSVPalette32( const CHSV& c1)
     {
         fill_solid( &(entries[0]), 32, c1);
@@ -1012,7 +1012,7 @@ public:
     {
         fill_gradient( &(entries[0]), 32, c1, c2, c3, c4);
     }
-    
+
 };
 
 class CRGBPalette32 {
@@ -1031,7 +1031,7 @@ public:
             entries[24+i]=c12; entries[26+i]=c13; entries[28+i]=c14; entries[30+i]=c15;
         }
     };
-    
+
     CRGBPalette32( const CRGBPalette32& rhs)
     {
         memmove8( &(entries[0]), &(rhs.entries[0]), sizeof( entries));
@@ -1050,7 +1050,7 @@ public:
         memmove8( &(entries[0]), &(rhs[0]), sizeof( entries));
         return *this;
     }
-    
+
     CRGBPalette32( const CHSVPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
@@ -1077,7 +1077,7 @@ public:
         }
         return *this;
     }
-    
+
     CRGBPalette32( const TProgmemRGBPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
@@ -1091,7 +1091,7 @@ public:
         }
         return *this;
     }
-    
+
     bool operator==( const CRGBPalette32 rhs)
     {
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
@@ -1108,7 +1108,7 @@ public:
     {
         return !( *this == rhs);
     }
-    
+
     inline CRGB& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return entries[x];
@@ -1117,7 +1117,7 @@ public:
     {
         return entries[x];
     }
-    
+
     inline CRGB& operator[] (int x) __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
@@ -1126,12 +1126,12 @@ public:
     {
         return entries[(uint8_t)x];
     }
-    
+
     operator CRGB*()
     {
         return &(entries[0]);
     }
-    
+
     CRGBPalette32( const CHSV& c1)
     {
         fill_solid( &(entries[0]), 32, c1);
@@ -1148,7 +1148,7 @@ public:
     {
         fill_gradient( &(entries[0]), 32, c1, c2, c3, c4);
     }
-    
+
     CRGBPalette32( const CRGB& c1)
     {
         fill_solid( &(entries[0]), 32, c1);
@@ -1165,8 +1165,8 @@ public:
     {
         fill_gradient_RGB( &(entries[0]), 32, c1, c2, c3, c4);
     }
-    
-    
+
+
     CRGBPalette32( const CRGBPalette16& rhs16)
     {
         UpscalePalette( rhs16, *this);
@@ -1176,7 +1176,7 @@ public:
         UpscalePalette( rhs16, *this);
         return *this;
     }
-    
+
     CRGBPalette32( const TProgmemRGBPalette16& rhs)
     {
         CRGBPalette16 p16(rhs);
@@ -1188,8 +1188,8 @@ public:
         *this = p16;
         return *this;
     }
-    
-    
+
+
     // Gradient palettes are loaded into CRGB16Palettes in such a way
     // that, if possible, every color represented in the gradient palette
     // is also represented in the CRGBPalette32.
@@ -1220,19 +1220,19 @@ public:
     {
         TRGBGradientPaletteEntryUnion* progent = (TRGBGradientPaletteEntryUnion*)(progpal);
         TRGBGradientPaletteEntryUnion u;
-        
+
         // Count entries
         uint16_t count = 0;
         do {
             u.dword = FL_PGM_READ_DWORD_NEAR(progent + count);
             count++;;
         } while ( u.index != 255);
-        
+
         int8_t lastSlotUsed = -1;
-        
+
         u.dword = FL_PGM_READ_DWORD_NEAR( progent);
         CRGB rgbstart( u.r, u.g, u.b);
-        
+
         int indexstart = 0;
         uint8_t istart8 = 0;
         uint8_t iend8 = 0;
@@ -1262,20 +1262,20 @@ public:
     {
         TRGBGradientPaletteEntryUnion* ent = (TRGBGradientPaletteEntryUnion*)(gpal);
         TRGBGradientPaletteEntryUnion u;
-        
+
         // Count entries
         uint16_t count = 0;
         do {
             u = *(ent + count);
             count++;;
         } while ( u.index != 255);
-        
+
         int8_t lastSlotUsed = -1;
-        
-        
+
+
         u = *ent;
         CRGB rgbstart( u.r, u.g, u.b);
-        
+
         int indexstart = 0;
         uint8_t istart8 = 0;
         uint8_t iend8 = 0;
@@ -1301,7 +1301,7 @@ public:
         }
         return *this;
     }
-    
+
 };
 
 
@@ -1404,7 +1404,7 @@ public:
     {
         return !( *this == rhs);
     }
-    
+
     inline CRGB& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return entries[x];

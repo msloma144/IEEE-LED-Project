@@ -2,3 +2,8 @@
 .piolibdeps
 .clang_complete
 .gcc-flags.json
+.idea
+cmake-build-debug
+CMakeLists.txt
+.pio
+.vscode
